@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-
 struct ListNode {
     int val;
     ListNode *next;
@@ -11,7 +9,7 @@ struct ListNode {
 
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
     
-    int arraySize = getLength(l1);
+    ListNode* reverseL1 = reverseList(l1);
     return nullptr;
 }
 
@@ -23,18 +21,23 @@ void printList(ListNode* head) {
     }
     std::cout << std::endl;
 }
+ListNode* reverseList(ListNode* head) {
+    while (curr != nullptr) {
 
-int getLength(ListNode* head) {
-    int length = 0;
-    while (head) {
-        length++;
-        head = head->next;
+        // Store next
+        next = curr->next;
+
+        // Reverse current node's next pointer
+        curr->next = prev;
+
+        // Move pointers one position ahead
+        prev = curr;
+        curr = next;
     }
-    return length;
+
+    // Return the head of reversed linked list
+    return prev;
 }
-
-
-
 
 int main() {
     ListNode* elem1 = new ListNode(3);
