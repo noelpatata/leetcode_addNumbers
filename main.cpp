@@ -7,12 +7,6 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-    
-    ListNode* reverseL1 = reverseList(l1);
-    return nullptr;
-}
-
 void printList(ListNode* head) {
     while (head) {
         std::cout << head->val;
@@ -21,43 +15,53 @@ void printList(ListNode* head) {
     }
     std::cout << std::endl;
 }
-ListNode* reverseList(ListNode* head) {
-    while (curr != nullptr) {
 
-        // Store next
-        next = curr->next;
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 
-        // Reverse current node's next pointer
-        curr->next = prev;
+        ListNode* dummy = new ListNode();
+        ListNode* curr = dummy;
+        int carry = 0;
 
-        // Move pointers one position ahead
-        prev = curr;
-        curr = next;
+        while (l1 || l2 || carry) {
+            int sum = carry;
+            if (l1) {
+                sum += l1->val;
+                l1 = l1->next;
+            }
+            if (l2) {
+                sum += l2->val;
+                l2 = l2->next;
+            }
+            
+            curr->next = new ListNode(sum % 10);
+            carry = sum / 10;
+            curr = curr->next;
+        }
+
+        return dummy->next;
     }
 
-    // Return the head of reversed linked list
-    return prev;
-}
+
+
 
 int main() {
-    ListNode* elem1 = new ListNode(3);
-    ListNode* elem2 = new ListNode(4, elem1);
-    int elem3 = 2;
+    ListNode* l1elem2 = new ListNode(9);
+    ListNode* l1 = new ListNode(5, l1elem2);
 
-    ListNode* l1 = new ListNode(elem3, elem2);
-    printList(l1);
-
-    ListNode* l2elem1 = new ListNode(4);
-    ListNode* l2elem2 = new ListNode(6, l2elem1);
-    int l2elem3 = 5;
+    ListNode* l2elem1 = new ListNode(9);
+    ListNode* l2elem2 = new ListNode(2, l2elem1);
+    int l2elem10 = 1;
     
-    ListNode* l2 = new ListNode(l2elem3, l2elem2);
+    ListNode* l2 = new ListNode(l2elem10, l2elem2);
 
 
     ListNode* result = addTwoNumbers(l1, l2);
+
+    printList(result);
     
 
 
 
     return 0;
 }
+
